@@ -1,0 +1,134 @@
+.auth {
+  width: 396px;
+  min-height: 100vh;
+  padding: 70px 0 0;
+  margin: 0 auto;
+}
+
+.auth__title {
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+  color: #FFF;
+  margin: 40px 0;
+}
+
+.auth__label {
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+  color: #8B8B8B;
+}
+
+.auth__input {
+  width: 100%;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  color: #FFF;
+  border: none;
+  padding: 15px;
+  margin: 10px 0 20px;
+  background: #2F2F2F;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+.auth__input:nth-last-child(2) {
+  margin-bottom: 5px;
+}
+
+.auth__caption {
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+  color: #EE3465;
+}
+
+.auth__submit {
+  width: 100%;
+  height: 45px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  color: #FFF;
+  border: none;
+  padding: 0;
+  margin: 69px 0 16px;
+  background: #4285F4;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.auth__submit:hover {
+  outline: 1px solid #3DDC84;
+}
+
+.auth__submit_margin-top {
+  margin-top: 168px;
+}
+
+.auth__signup {
+  display: flex;
+  justify-content: center;
+}
+
+.auth__text {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #8B8B8B;
+  margin: 0;
+  text-align: center;
+}
+
+.auth__link{
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #4285F4;
+  text-decoration: none;
+  margin-left: 6px;
+  cursor: pointer;
+}
+
+.auth__link:hover {
+  opacity: .7;
+}
+
+@media screen and (max-width: 768px) {
+  .auth {
+    padding-top: 232px;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .auth {
+    width: 260px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 56px;
+  }
+  .auth__title {
+    margin-top: 50px;
+    margin-bottom: 80px;
+  }
+  .auth__submit {
+    font-size: 12px;
+    line-height: 15px;
+    margin-top: 157px;
+  }
+  .auth__submit_margin-top {
+    margin-top: 267px;
+  }
+  .auth__text {
+    font-size: 12px;
+    line-height: 15px;
+  }
+  .auth__link {
+    font-size: 12px;
+    line-height: 15px;
+  }
+}
