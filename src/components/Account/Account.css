@@ -20,7 +20,7 @@
 
 .account__icon {
   display: inline-block;
-  background-image: url(../../images/account-icon.png);
+  background-image: url(../../images/account-icon.svg);
   background-position: center;
   background-repeat: no-repeat;
   background-color: #313131;

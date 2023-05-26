@@ -21,14 +21,13 @@
 }
 
 .promo__logo {
-  width: 100%;
   align-self: flex-end;
   margin-top: 102px;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 800px) {
   .promo {
-    padding: 300px 0 70px;
+    padding: 300px 44px 70px;
   }
   .promo_container {
     align-items: center;
@@ -38,6 +37,7 @@
     text-align: center;
   }
   .promo__logo {
+    width: 100%;
     margin-top: 140px;
     align-self: center;
   }
@@ -45,8 +45,7 @@
 
 @media screen and (max-width: 500px) {
   .promo {
-    padding-top: 183px;
-    padding-bottom: 40px;
+    padding: 183px 0 40px;
   }
   .promo__title {
     max-width: 320px;

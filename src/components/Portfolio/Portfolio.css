@@ -18,6 +18,11 @@
 .portfolio__site-item {
   list-style-type: none;
   border-bottom: 1px solid #424242;
+  margin-top: 20px;
+}
+
+.portfolio__site-item:nth-of-type(1) {
+  margin-top: 0;
 }
 
 .portfolio__site-link {

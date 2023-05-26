@@ -1,4 +1,4 @@
-import promo_logo from '../../images/promo-logo.png';
+import promo_logo from '../../images/promo-logo.svg';
 
 function Promo() {
 
