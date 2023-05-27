@@ -1,0 +1,32 @@
+.filter {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 30px auto 0;
+  padding-bottom: 40px;
+  border-bottom: 1px solid #424242;;
+}
+
+.filter__checkbox {
+  accent-color: #3DDC84;
+  margin-right: 14px;
+}
+
+.filter__checkbox:hover {
+  opacity: .7;
+  cursor: pointer;
+}
+
+.filter__text {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 18px;
+  color: #FFF;
+  margin: 0;
+}
+
+@media screen and (max-width: 640px) {
+  .filter__text {
+    font-size: 11px;
+  }
+}

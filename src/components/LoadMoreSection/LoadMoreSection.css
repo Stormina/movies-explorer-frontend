@@ -1,0 +1,28 @@
+.load-more {
+  display: flex;
+}
+
+.load-more__button {
+  width: 320px;
+  height: 36px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+  color: #FFF;
+  padding: 0;
+  margin: 50px auto 80px;
+  border: 1px solid #424242;
+  background-color: #202020;
+  cursor: pointer;
+}
+
+.load-more__button:hover {
+  outline: 1px solid #3DDC84;
+}
+
+@media screen and (max-width: 640px) {
+  .load-more__button {
+    width: 240px;
+  }
+}

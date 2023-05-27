@@ -1,0 +1,129 @@
+.project {
+  padding: 110px 70px;
+}
+
+.project__title {
+  color: #FFF;
+  padding-bottom: 23px;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 27px;
+  border-bottom: 1px solid #DADADA;
+  margin: 0;
+}
+
+.project__container {
+  color: #FFF;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 26px 40px;
+  margin-top: 70px;
+}
+
+.project__container:nth-of-type(2) {
+  margin-top: 110px;
+}
+
+.project__container_size_grid {
+  grid-template-columns: 228px 1fr;
+  gap: 0;
+}
+
+.project__subtitle {
+  margin: 0;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.project__description {
+  margin: 0;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.project__duration {
+  margin: 0;
+  padding: 9px 0;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  background-color: #303030;
+}
+
+.project__duration_theme_color {
+  background-color: #3DDC84;
+  color: #000;
+}
+
+.project__stack {
+  margin: 0;
+  padding-top: 9px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+  color: #8B8B8B;
+}
+
+@media screen and (max-width: 768px) {
+  .project {
+    padding: 90px 50px;
+  }
+  .project__container {
+    gap: 22px 30px;
+  }
+  .project__container:nth-of-type(2) {
+    margin-top: 93px;
+  }
+  .project__container_size_grid {
+    grid-template-columns: 140px 1fr;
+    gap: 0;
+  }
+  .project__description {
+    font-size: 12px;
+    line-height: 18px;
+  }
+  .project__stack {
+    line-height: 17px;
+    padding-top: 14px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .project {
+    padding: 70px 18px;
+  }
+  .project__title {
+    font-size: 18px;
+    line-height: 22px;
+    padding-bottom: 28px;
+  }
+  .project__subtitle {
+    font-size: 18px;
+    line-height: 22px;
+  }
+  .project__container {
+    grid-template-columns: 1fr;
+  }
+  .project__description{
+    font-size: 11px;
+    line-height: 16px;
+  }
+  .project__description:nth-last-of-type(1){
+    grid-row-start: 2;
+  }
+  .project__container_size_grid {
+    grid-template-columns: 100px 1fr;
+  }
+  .project__duration {
+    font-size: 11px;
+    line-height: 13px;
+  }
+  .project__stack {
+    font-size: 11px;
+    line-height: 13px;
+  }
+}

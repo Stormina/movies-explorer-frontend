@@ -1,0 +1,78 @@
+.navigation__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 70px;
+}
+
+.navigation__links {
+  width: 96%;
+  display: flex;
+  align-items: center;
+}
+
+.navigation__link {
+  text-decoration: none;
+  color: #FFF;
+  opacity: 1;
+  transition: opacity .4s ease;
+}
+
+.navigation__link:hover {
+  opacity: .6;
+}
+
+.navigation__movies {
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 18px;
+  margin: 0 16px 0 44px;
+}
+
+.navigation__saved-movies {
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 18px;
+  margin-right: auto;
+}
+
+.navigation__signup {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  margin-left: auto;
+}
+
+.navigation__login {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  color: #000;
+  padding: 8px 20px;
+  background-color: #3DDC84;
+  border-radius: 3px;
+  margin-left: 30px;
+}
+
+@media screen and (max-width: 768px) {
+  .navigation__container {
+    padding: 18px 30px;
+  }
+  .navigation__links {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .navigation__container {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+  .navigation__signup {
+    font-size: 10px;
+  }
+  .navigation__login {
+    font-size: 10px;
+    margin-left: 14px;
+  }
+}
