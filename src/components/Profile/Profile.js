@@ -1,33 +1,72 @@
+import { useEffect } from "react";
 import { Link } from 'react-router-dom';
+import useValidator from '../../utils/useValidator';
 
-function Profile() {
+function Profile({ currentUser, onSignOut, onUserInfo, isSuccess, profileMessage }) {
+  const {values, handleChange, errors, isValid, setValues, setIsValid} = useValidator();
+
+  useEffect(() => {
+    setValues(currentUser);
+    setIsValid(true);
+  }, [currentUser, setValues, setIsValid]);
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    onUserInfo(values.name, values.email);
+  }
 
   return (
     <section className="profile">
-      <h2 className="profile__title">Привет, Виталий!</h2>
-        <form className="profile__form">
+      <h2 className="profile__title">Привет, {currentUser.name}!</h2>
+        <form className="profile__form auth__form" noValidate onSubmit={handleSubmit}>
           <div className="profile__container">
             <label className="profile__label">
               Имя
               <input className="profile__input"
-                minLength="2"
+                name="name"
                 type="text"
+                minLength="2"
                 required
-                defaultValue="Виталий"
+                autocomplete="on"
+                value={values.name ? values.name : ""}
+                onChange={handleChange}
               />
             </label>
+            <span className="auth__caption">
+              {errors.name}
+            </span>
             <label className="profile__label">
               E-mail
               <input className="profile__input"
+                name="email"
                 type="email"
                 required
-                defaultValue="pochta@yandex.ru"
+                autocomplete="off"
+                value={values.email ? values.email : ""}
+                onChange={handleChange}
               />
             </label>
+            <span className="auth__caption">
+              {errors.email}
+            </span>
           </div>
-          <button className="profile__edit" type="button">Редактировать</button>
+          <span className={`profile__submit-error ${!isSuccess ? "profile__submit-error_color" : ""}`}>
+            {profileMessage}
+          </span>
+            <button type="submit"
+              className={(isValid &&
+                (values.name !== currentUser.name || values.email !== currentUser.email))
+                  ? "profile__submit"
+                  : "profile__submit profile__submit_disabled"}
+              disabled={(values.name === currentUser.name
+                && values.email === currentUser.email) || !isValid}>
+                  Редактировать
+            </button>
         </form>
-        <Link to="/" className="profile__sign-out">Выйти из аккаунта</Link>
+        <Link to="/" onClick={onSignOut}
+          className="profile__sign-out">
+            Выйти из аккаунта
+        </Link>
     </section>
   )
 }

@@ -4,10 +4,6 @@
   padding: 80px 70px 0;
 }
 
-.saved-movies__divider {
-  height: 140px;
-}
-
 @media screen and (max-width: 768px) {
   .saved-movies {
     padding-left: 30px;
