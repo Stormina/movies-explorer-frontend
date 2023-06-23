@@ -22,6 +22,10 @@
   opacity: .6;
 }
 
+.navigation__link-active {
+  opacity: .6;
+}
+
 .navigation__movies {
   font-weight: 500;
   font-size: 13px;

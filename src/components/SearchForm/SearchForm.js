@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
 function SearchForm({
@@ -9,15 +10,24 @@ function SearchForm({
   isShortMovies,
   saved
 }) {
-  const [search, setSearch] = useState('')
+  const [search, setSearch] = useState('');
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    if (pathname === '/movies') {
+      setSearch(localStorage.getItem('search'));
+    }
+  }, [pathname])
 
   function handleChange(event){
     setSearch(event.target.value);
     onSearch(event.target.value);
+    localStorage.removeItem('search');
   }
 
   function handleSearchMovies(event) {
     event.preventDefault();
+    localStorage.setItem('search', search);
     onSearchMovies(search);
   }
 

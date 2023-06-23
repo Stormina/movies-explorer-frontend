@@ -22,7 +22,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [registerErrorMessage, setRegisterErrorMessage] = useState('');
   const [loginErrorMessage, setLoginErrorMessage] = useState('');
-  const [currentUser, setCurrentUser] = useState('');
+  const [currentUser, setCurrentUser] = useState({});
   const [profileMessage, setProfileMessage] = useState('');
   const [isSuccess, setIsSuccess] = useState(true);
   const [isShortMovies, setShortMovies] = useState(false);
@@ -37,6 +37,7 @@ function App() {
       const token = localStorage.getItem('jwt')
       setProfileMessage('');
       setIsSuccess(true);
+
         MainApi.getSavedMovies(token)
           .then((movies) => {
             setSavedMovies(movies);
@@ -52,20 +53,29 @@ function App() {
       const token = localStorage.getItem('jwt');
       const searchedMovies = JSON.parse(localStorage.getItem('movies'));
 
-      Promise.all([MainApi.getUserInfo(token), MainApi.getSavedMovies(token)])
-        .then(([userData, movies]) => {
-          setCurrentUser(userData);
-          localStorage.setItem('savedMovies', JSON.stringify(movies));
-          setSavedMovies(movies);
-          setMovies(searchedMovies);
-          setLoggedIn(true)
-        })
-        .catch(() => {
-            console.log("Что-то пошло не так...");
-          }
-        )
-    }
+        MainApi.getSavedMovies(token)
+          .then((movies) => {
+            localStorage.setItem('savedMovies', JSON.stringify(movies));
+            setSavedMovies(movies);
+            setMovies(searchedMovies);
+          })
+          .catch(() => {
+              console.log("Что-то пошло не так...");
+            }
+          )
+      }
   }, [navigate, pathname, isLoggedIn])
+
+  useEffect(() => {
+    const token = localStorage.getItem('jwt');
+    if (isLoggedIn) {
+      MainApi.getUserInfo(token)
+      .then((res) => {
+        setCurrentUser(res)
+      })
+      .catch((err) => console.log(err));
+    }
+  }, [isLoggedIn]);
 
   useEffect(() => {
     const token = localStorage.getItem('jwt');
@@ -73,6 +83,7 @@ function App() {
       MainApi.checkToken(token)
       .then(() => {
         setLoggedIn(true);
+        localStorage.setItem("loggedIn", isLoggedIn);
       })
       .catch((err) => {
         if (err.status === 400) {
@@ -82,6 +93,7 @@ function App() {
         }
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function handleRegister(name, password, email) {
@@ -89,7 +101,7 @@ function App() {
     setIsLoading(true);
     MainApi.signUp({name, password, email})
       .then((res) => {
-        if(res.user) {
+        if(res) {
           setRegisterErrorMessage('')
           handleLogin(password, email);
         }
@@ -117,7 +129,7 @@ function App() {
             .then((userData) => {
               setCurrentUser(userData)
             })
-            .catch((res) => {
+            .catch(() => {
               setLoginErrorMessage("Что-то пошло не так...");
             });
             navigate('/movies');
@@ -135,19 +147,22 @@ function App() {
     MainApi.patchUserInfo({name, email})
       .then((data) => {
         if(data) {
-          setCurrentUser(data);
+          setCurrentUser({
+            name: data.name,
+            email: data.email,
+          });
           setProfileMessage("Профиль успешно обновлен!");
           setIsSuccess(true);
         }
       })
-      .catch((res) => {
+      .catch(() => {
         setIsSuccess(false);
         setProfileMessage("Что-то пошло не так...");
       })
   }
 
-  function handleShortMovies(e) {
-    setShortMovies(e.target.checked);
+  function handleShortMovies(event) {
+    setShortMovies(event.target.checked);
   }
 
   const searchMovies = (word) => {
@@ -251,6 +266,8 @@ function App() {
     localStorage.removeItem("movies");
     localStorage.removeItem("savedMovies");
     localStorage.removeItem("loggedIn");
+    localStorage.removeItem("search");
+    localStorage.removeItem("checkbox");
     setLoggedIn(false);
     setAllMovies([]);
     setMovies([]);
@@ -261,7 +278,7 @@ function App() {
   }
 
   return (
-    <CurrentUserContext.Provider value={currentUser}>
+    <CurrentUserContext.Provider value={{ currentUser, setCurrentUser }}>
       <div className="page">
         { pathname === "/" ||
           pathname === "/movies" ||
@@ -272,8 +289,9 @@ function App() {
 
         <Routes>
           <Route exact path="/" element={ <Main isLoggedIn={isLoggedIn}/> }/>
-          <Route exact path="/movies" element={
+          <Route path="/movies" element={
             <ProtectedRoute 
+              exact
               component={Movies}
               movies={movies}
               isLoggedIn={isLoggedIn}
@@ -288,8 +306,9 @@ function App() {
               isShortMovies={isShortMovies} 
             />
           }/>
-          <Route exact path="/saved-movies" element={
-            <ProtectedRoute 
+          <Route path="/saved-movies" element={
+            <ProtectedRoute
+              exact
               component={SavedMovies}
               movies={savedMovies}
               onDeleteMovie={handleDeleteMovie}
@@ -303,15 +322,15 @@ function App() {
               isLoggedIn={isLoggedIn}
             />
           }/>
-          <Route exact path="/profile" element={
-            <ProtectedRoute 
+          <Route path="/profile" element={
+            <ProtectedRoute
+              exact
               component={Profile}
               onSignOut={handleOnSignOut}
               onUserInfo={handleUserInfo}
               profileMessage={profileMessage}
               isSuccess={isSuccess}
               isLoggedIn={isLoggedIn}
-              currentUser={currentUser}
             />
           }/>
           <Route exact path="/signup" element={

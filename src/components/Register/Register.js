@@ -15,7 +15,7 @@ function Register({ onRegister, errorMessage, onClean }) {
     <section className="auth">
       <Logo />
       <h2 className="auth__title">Добро пожаловать!</h2>
-      <form className="auth__form" noValidate onSubmit={handleSubmit}>
+      <form className="auth__form" onSubmit={handleSubmit}>
         <label className="auth__label">
           Имя
           <input
@@ -25,6 +25,9 @@ function Register({ onRegister, errorMessage, onClean }) {
             className="auth__input"
             value={values.name ? values.name : ""}
             required
+            minLength='2'
+            maxLength='30'
+            pattern='^(?!\s)[A-Za-zА-Яа-я\-\s]+$'
             autocomplete="on"
             onChange={handleChange}/>
           <span className="auth__caption">
@@ -40,6 +43,7 @@ function Register({ onRegister, errorMessage, onClean }) {
             className="auth__input"
             value={values.email ? values.email : ""}
             required
+            pattern='^.+@.+\..+$'
             autocomplete="on"
             onChange={handleChange}/>
           <span className="auth__caption">
@@ -63,8 +67,8 @@ function Register({ onRegister, errorMessage, onClean }) {
         </label>
         <span className="auth__submit-error">{errorMessage}</span>
         <button type="submit"
-          disabled={!isValid}
-          className={`auth__submit  ${!isValid && "auth__submit_disabled"}`}>
+          disabled={!isValid ? true : false}
+          className={!isValid ? "auth__submit auth__submit_disabled" : "auth__submit"}>
             Зарегистрироваться
         </button>
         <div className="auth__signup">

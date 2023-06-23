@@ -52,7 +52,17 @@ useEffect(() => {
         setNotFoundMovies(false);
       }
     } else {
+      const allMovies = JSON.parse(localStorage.getItem('savedMovies'));
+      const searchSavedResult = handleSearchCheck(allMovies, target, searchWord);
       setShortMovies(false);
+      if (searchSavedResult.length === 0) {
+        setNotFoundMovies(true);
+        setMovies([]);
+        setIsLoading(false);
+      } else {
+        setMovies(searchSavedResult)
+        setNotFoundMovies(false);
+      }
     }}
 
   return (

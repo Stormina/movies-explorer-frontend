@@ -1,11 +1,7 @@
-import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useState } from "react";
 
 function MoviesCard({ movie, onMovieSave, onDeleteMovie, saved }) {
   const [isMoviesSaved, setIsMoviesSaved] = useState(false);
-  const [isLiked, setIsLiked] = useState(false);
-
-  const location = useLocation();
 
   const film = {
     country : movie.country || "Не найдено",
@@ -25,30 +21,23 @@ function MoviesCard({ movie, onMovieSave, onDeleteMovie, saved }) {
   const image = `https://api.nomoreparties.co${movie.image?.url}`;
   const savedMovies = JSON.parse(localStorage.getItem("savedMovies"));
   const currentMovie = savedMovies?.find((film) => film.nameRU === movie.nameRU);
+  const isLiked = savedMovies
+    ? savedMovies.some((item) => item.movieId === movie.id)
+    : false;
 
   function handleLikeButtonCLick() {
-    setIsLiked(true);
     onMovieSave(film);
     onBookmarkState();
   }
 
   function handleDisLike() {
-    setIsLiked(false);
     onDeleteMovie(currentMovie._id);
     onBookmarkState();
   }
 
   function handleDeleteMovie() {
     onDeleteMovie(movie._id);
-    setIsLiked(false);
   }
-
-  useEffect(() => {
-    if(currentMovie) {
-      setIsLiked(true)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location])
 
   function onBookmarkState(){
     setIsMoviesSaved(!setIsMoviesSaved)

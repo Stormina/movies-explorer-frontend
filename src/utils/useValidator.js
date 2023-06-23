@@ -3,7 +3,7 @@ import { useState } from 'react';
 export function useValidator() {
   const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
-  const [isValid, setIsValid] = useState(true);
+  const [isValid, setIsValid] = useState(false);
 
   function handleChange(event){
     setValues({...values, [event.target.name]: event.target.value});

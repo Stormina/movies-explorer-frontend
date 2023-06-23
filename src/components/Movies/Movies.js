@@ -18,9 +18,14 @@ function Movies({
   const saved = false
 
   useEffect(() => {
-    setMovies(movies)
-    setNotFoundMovies(notFoundMovies)
-    setIsLoading(isLoading)
+    if (localStorage.getItem('checkbox')) {
+      setMovies(JSON.parse(localStorage.getItem('checkbox')));
+      setShortMovies(true);
+    } else {
+      setMovies(movies);
+      setNotFoundMovies(notFoundMovies);
+      setIsLoading(isLoading);
+    }
   }, [isLoading, movies, notFoundMovies, setNotFoundMovies, setIsLoading])
 
   function handleSearch(searchWord) {
@@ -43,6 +48,7 @@ function Movies({
     if (target){
       const allMovies = JSON.parse(localStorage.getItem('movies'));
       const searchSavedResult = handleSearchCheck(allMovies, target, searchWord);
+      localStorage.setItem('checkbox', JSON.stringify(searchSavedResult));
       setShortMovies(true);
       if (searchSavedResult.length === 0) {
         setNotFoundMovies(true);
@@ -53,7 +59,18 @@ function Movies({
         setNotFoundMovies(false);
       }
     } else {
+      const allMovies = JSON.parse(localStorage.getItem('movies'));
+      const searchSavedResult = handleSearchCheck(allMovies, target, searchWord);
       setShortMovies(false);
+      localStorage.removeItem('checkbox');
+      if (searchSavedResult.length === 0) {
+        setNotFoundMovies(true);
+        setMovies([]);
+        setIsLoading(false);
+      } else {
+        setMovies(searchSavedResult)
+        setNotFoundMovies(false);
+      }
     }}
 
   return (

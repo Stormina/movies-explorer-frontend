@@ -4,9 +4,7 @@ function FilterCheckbox({ onChange, isShortMovies }) {
     <div className="filter">
       <input className="filter__checkbox" type="checkbox" id="checkbox"
         onChange={onChange} checked={isShortMovies} />
-      <label for="checkbox" className="filter__label">
-        <p className="filter__text">Короткометражки</p>
-      </label>
+      <p className="filter__text">Короткометражки</p>
     </div>
   )
 }
