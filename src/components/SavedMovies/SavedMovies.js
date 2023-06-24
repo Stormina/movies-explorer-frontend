@@ -15,18 +15,16 @@ function SavedMovies({
   const [isShortMovies, setShortMovies] = useState(false);
   const [isMovies, setMovies] = useState([]);
   const [searchWord, setSearchWord] = useState('');
+  const allMovies = JSON.parse(localStorage.getItem('savedMovies'));
   const saved = true
 
 useEffect(() => {
-  if (localStorage.getItem('checkboxSaved')) {
-    setMovies(JSON.parse(localStorage.getItem('checkboxSaved')));
-    setShortMovies(true);
-  } else {
+  if (!isShortMovies) {
   setMovies(movies)
   setNotFoundMovies(notFoundMovies)
   setIsLoading(isLoading)
   }
-}, [isLoading, movies, notFoundMovies, setNotFoundMovies, setIsLoading])
+}, [isLoading, movies, notFoundMovies, setNotFoundMovies, setIsLoading, isShortMovies])
 
   function handleSearch(searchWord) {
     setSearchWord(searchWord);
@@ -50,9 +48,7 @@ useEffect(() => {
   function handleShortMovies(event) {
     const target = event.target.checked
     if (target){
-      const allMovies = JSON.parse(localStorage.getItem('savedMovies'));
       const searchSavedResult = handleSearchCheck(allMovies, target, searchWord);
-      localStorage.setItem('checkboxSaved', JSON.stringify(searchSavedResult));
       setShortMovies(true);
       if (searchSavedResult.length === 0) {
         setNotFoundMovies(true);
@@ -63,19 +59,12 @@ useEffect(() => {
         setNotFoundMovies(false);
       }
     } else {
-      const allMovies = JSON.parse(localStorage.getItem('savedMovies'));
-      const searchSavedResult = handleSearchCheck(allMovies, target, searchWord);
       setShortMovies(false);
-      localStorage.removeItem('checkboxSaved');
-      if (searchSavedResult.length === 0) {
-        setNotFoundMovies(true);
-        setMovies([]);
-        setIsLoading(false);
-      } else {
-        setMovies(searchSavedResult)
-        setNotFoundMovies(false);
+      setMovies(allMovies);
+      setIsLoading(false);
+      setNotFoundMovies(false);
       }
-    }}
+    }
 
   return (
     <section className="saved-movies">
