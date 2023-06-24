@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
+import { SHORT_MOVIE_DURATION } from '../../utils/constants';
 
 function SavedMovies({
   movies,
@@ -17,9 +18,14 @@ function SavedMovies({
   const saved = true
 
 useEffect(() => {
+  if (localStorage.getItem('checkboxSaved')) {
+    setMovies(JSON.parse(localStorage.getItem('checkboxSaved')));
+    setShortMovies(true);
+  } else {
   setMovies(movies)
   setNotFoundMovies(notFoundMovies)
   setIsLoading(isLoading)
+  }
 }, [isLoading, movies, notFoundMovies, setNotFoundMovies, setIsLoading])
 
   function handleSearch(searchWord) {
@@ -28,13 +34,17 @@ useEffect(() => {
 
   const handleSearchCheck = (films, target, searchWord) => {
     const filterRegex = new RegExp(searchWord, 'gi');
-    return films.filter((film) => {
-      if (target) {
-        return film.duration <= 40 && filterRegex.test(film.nameRU)
-      } else {
-        return filterRegex.test(film.nameRU)
-      }
-    })
+    if (films) {
+      return films.filter((film) => {
+        if (target) {
+          return film.duration <= SHORT_MOVIE_DURATION && filterRegex.test(film.nameRU)
+        } else {
+          return filterRegex.test(film.nameRU)
+        }
+      })
+    } else {
+      return [];
+    }
   }
 
   function handleShortMovies(event) {
@@ -42,6 +52,7 @@ useEffect(() => {
     if (target){
       const allMovies = JSON.parse(localStorage.getItem('savedMovies'));
       const searchSavedResult = handleSearchCheck(allMovies, target, searchWord);
+      localStorage.setItem('checkboxSaved', JSON.stringify(searchSavedResult));
       setShortMovies(true);
       if (searchSavedResult.length === 0) {
         setNotFoundMovies(true);
@@ -55,6 +66,7 @@ useEffect(() => {
       const allMovies = JSON.parse(localStorage.getItem('savedMovies'));
       const searchSavedResult = handleSearchCheck(allMovies, target, searchWord);
       setShortMovies(false);
+      localStorage.removeItem('checkboxSaved');
       if (searchSavedResult.length === 0) {
         setNotFoundMovies(true);
         setMovies([]);

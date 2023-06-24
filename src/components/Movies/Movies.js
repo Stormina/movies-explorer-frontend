@@ -45,7 +45,7 @@ function Movies({
       })
     } else {
       return [];
-  }
+    }
   }
 
   function handleShortMovies(event) {
