@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
+import { SHORT_MOVIE_DURATION } from '../../utils/constants';
 
 function Movies({
   movies,
@@ -34,13 +35,17 @@ function Movies({
 
   const handleSearchCheck = (films, target, searchWord) => {
     const filterRegex = new RegExp(searchWord, 'gi');
-    return films.filter((film) => {
-      if (target) {
-        return film.duration <= 40 && filterRegex.test(film.nameRU)
-      } else {
-        return filterRegex.test(film.nameRU)
-      }
-    })
+    if (films) {
+      return films.filter((film) => {
+        if (target) {
+          return film.duration <= SHORT_MOVIE_DURATION && filterRegex.test(film.nameRU)
+        } else {
+          return filterRegex.test(film.nameRU)
+        }
+      })
+    } else {
+      return [];
+  }
   }
 
   function handleShortMovies(event) {

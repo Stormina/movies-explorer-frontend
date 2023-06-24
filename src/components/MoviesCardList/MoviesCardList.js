@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import MoviesCard from '../MoviesCard/MoviesCard';
-import Preloader from "../Preloader/Preloader";
+import Preloader from '../Preloader/Preloader';
+import { WINDOW_SIZE, INITIAL_CARDS, ADDING_CARDS } from '../../utils/constants';
 
 function MoviesCardList({ movies, isLoading, notFoundMovies, saved, onMovieSave, onDeleteMovie }) {
   
@@ -10,30 +11,32 @@ function MoviesCardList({ movies, isLoading, notFoundMovies, saved, onMovieSave,
 
   const [isInitialMovies, setInitialMovies] = useState(() => {
     const windowSize = window.innerWidth;
-    if(windowSize < 640) {
-      return 5
-    } else if(windowSize >= 640 && windowSize <= 997) {
-      return 8
-    } else if(windowSize > 997) {
-      return 12 }
-  } );
+    if(windowSize < WINDOW_SIZE.SMALL) {
+      return INITIAL_CARDS.MIN
+    } else if(windowSize >= WINDOW_SIZE.SMALL && windowSize <= WINDOW_SIZE.LARGE) {
+      return INITIAL_CARDS.MID
+    } else if(windowSize > WINDOW_SIZE.LARGE) {
+      return INITIAL_CARDS.MAX
+    }
+  });
+
   const [moreFilms] = useState(() => {
     const windowSize = window.innerWidth;
-     if(windowSize <= 997) {
-      return 2
-    } else if(windowSize > 997) {
-      return 3
+     if(windowSize <= WINDOW_SIZE.LARGE) {
+      return ADDING_CARDS.MIN
+    } else if(windowSize > WINDOW_SIZE.LARGE) {
+      return ADDING_CARDS.MAX
     }
   });
 
   function handleScreenWidth () {
     const windowSize = window.innerWidth;
-    if(windowSize < 640) {
-      setInitialMovies(5)
-    } else if(windowSize <= 997) {
-      setInitialMovies(8)
-    } else if(windowSize > 997) {
-      setInitialMovies(12)
+    if(windowSize < WINDOW_SIZE.SMALL) {
+      setInitialMovies(INITIAL_CARDS.MIN)
+    } else if(windowSize <= WINDOW_SIZE.LARGE) {
+      setInitialMovies(INITIAL_CARDS.MID)
+    } else if(windowSize > WINDOW_SIZE.LARGE) {
+      setInitialMovies(INITIAL_CARDS.MAX)
     }
   }
 

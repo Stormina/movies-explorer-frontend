@@ -13,6 +13,7 @@ import SavedMovies from '../SavedMovies/SavedMovies.js';
 import ErrorPage from '../ErrorPage/ErrorPage.js';
 import * as MainApi from '../../utils/MainApi.js';
 import * as MoviesApi from '../../utils/MoviesApi.js';
+import { SHORT_MOVIE_DURATION } from '../../utils/constants.js';
 
 function App() {
   const [allMovies, setAllMovies] = useState([]);
@@ -235,7 +236,7 @@ function App() {
     const filterRegex = new RegExp(word, "gi");
     return movies.filter((movie) => {
       if (isShortMovies) {
-        return movie.duration <= 40 && filterRegex.test(movie.nameRU)
+        return movie.duration <= SHORT_MOVIE_DURATION && filterRegex.test(movie.nameRU)
       } else {
         return filterRegex.test(movie.nameRU)
       }
