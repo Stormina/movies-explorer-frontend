@@ -1,23 +1,14 @@
-import {useState} from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../Logo/Logo';
+import useValidator from '../../utils/useValidator';
 
-function Login(onRegister) {
-
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  
-  function handleEmail(event) {
-    setEmail(event.target.value);
-  }
-
-  function handlePassword(event) {
-    setPassword(event.target.value);
-  }
+function Login({ onLogin, errorMessage, onClean }) {
+  const {values, handleChange, errors, isValid} = useValidator();
 
   function handleSubmit(event) {
     event.preventDefault();
-    onRegister(email, password);
+    onLogin(values.password, values.email);
   }
 
   return (
@@ -32,9 +23,14 @@ function Login(onRegister) {
             type="email"
             placeholder="Email"
             className="auth__input"
-            value={email ? email : ''}
+            value={values.email ? values.email : ""}
             required
-            onChange={handleEmail}/>
+            pattern='^.+@.+\..+$'
+            autocomplete="on"
+            onChange={handleChange}/>
+          <span className="auth__caption">
+            {errors.email}
+          </span>
         </label>
         <label className="auth__label">
           Пароль
@@ -43,15 +39,23 @@ function Login(onRegister) {
             type="password"
             placeholder="Пароль"
             className="auth__input"
-            value={password ? password : ''}
+            value={values.password ? values.password : ""}
             required
             autoComplete="off"
-            onChange={handlePassword}/> 
+            onChange={handleChange}/>
+          <span className="auth__caption">
+            {errors.password}
+          </span>
         </label>
-        <button className="auth__submit auth__submit_margin-top" type="submit">Войти</button>
+        <span className="auth__submit-error auth__submit-error_margin-top">{errorMessage}</span>
+        <button type="submit"
+          disabled={!isValid ? true : false}
+          className={!isValid ? "auth__submit auth__submit_disabled" : "auth__submit"}>
+            Войти
+        </button>
         <div className="auth__signup">
           <p className="auth__text">Ещё не зарегистрированы?</p>
-          <Link to="/signup" className="auth__link">Регистрация</Link>
+          <Link to="/signup" className="auth__link" onClick={onClean}>Регистрация</Link>
         </div>
       </form>
     </section>

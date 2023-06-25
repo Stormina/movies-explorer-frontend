@@ -1,8 +1,8 @@
-.load-more {
+.movies-cards__loader {
   display: flex;
 }
 
-.load-more__button {
+.movies-cards__loader-button {
   width: 320px;
   height: 36px;
   font-style: normal;
@@ -17,12 +17,12 @@
   cursor: pointer;
 }
 
-.load-more__button:hover {
+.movies-cards__loader-button:hover {
   outline: 1px solid #3DDC84;
 }
 
 @media screen and (max-width: 640px) {
-  .load-more__button {
+  .movies-cards__loader-button {
     width: 240px;
   }
 }

@@ -1,0 +1,21 @@
+const SHORT_MOVIE_DURATION = 40;
+const WINDOW_SIZE = {
+  SMALL: 640,
+  LARGE: 997,
+};
+const INITIAL_CARDS = {
+  MIN: 5,
+  MID: 8,
+  MAX: 12,
+};
+const ADDING_CARDS = {
+  MIN: 2,
+  MAX: 3,
+};
+
+export {
+  SHORT_MOVIE_DURATION,
+  WINDOW_SIZE,
+  INITIAL_CARDS,
+  ADDING_CARDS,
+}

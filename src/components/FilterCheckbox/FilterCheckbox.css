@@ -1,4 +1,5 @@
 .filter {
+  position: relative;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -8,8 +9,23 @@
 }
 
 .filter__checkbox {
-  accent-color: #3DDC84;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 20px;
+  width: 36px;
+  border-radius: 16px;
+  box-shadow: inset -18px 0px 0px 0px #202020;
+  background-color: #1612eb;
+  outline: none;
+  transition: 0.2s;
   margin-right: 14px;
+  border: 1px solid #1612eb;
+}
+
+.filter__checkbox:checked {
+  box-shadow: inset 18px 0px 0px 0px #202020;
+  background-color: #3DDC84;
+  border: 1px solid #3DDC84;
 }
 
 .filter__checkbox:hover {

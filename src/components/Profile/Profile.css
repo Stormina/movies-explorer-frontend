@@ -47,10 +47,25 @@
   border: none;
   text-align: end;
   padding: 0;
+  margin-bottom: 10px;
   cursor: pointer;
 }
 
-.profile__edit {
+.profile__submit-error {
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+  color: #FFF;
+  display: block;
+  text-align: center;
+  margin: 176px 0 10px;
+}
+
+.profile__submit-error_color {
+  color: #EE3465;
+}
+
+.profile__submit {
   font-weight: 400;
   font-size: 13px;
   line-height: 16px;
@@ -59,12 +74,17 @@
   background-color: #202020;
   border: none;
   width: 410px;
-  margin: 220px auto 0;
+  padding: 0;
+  margin: 0 auto;
   cursor: pointer;
 }
 
-.profile__edit:hover {
+.profile__submit:hover {
   opacity: .7;
+}
+
+.profile__submit_disabled {
+  color: #9b9595c2;
 }
 
 .profile__sign-out {
@@ -88,8 +108,8 @@
     margin-top: 236px;
     margin-bottom: 96px;
   }
-  .profile__edit {
-    margin-top: 210px;
+  .profile__submit-error {
+    margin-top: 166px;
   }
 }
 
@@ -101,10 +121,13 @@
   .profile__form {
     width: 260px;
   }
-  .profile__edit {
+  .profile__submit {
     font-size: 12px;
     line-height: 15px;
     width: 260px;
+  }
+  .profile__submit-error {
+    margin-top: 335px;
   }
   .profile__sign-out {
     font-size: 12px;

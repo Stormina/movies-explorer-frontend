@@ -3,6 +3,13 @@
   list-style-type: none;
 }
 
+.movies-cards__error {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  color: #FFFFFF;
+}
+
 .movies-card:hover {
   outline: 1px solid #3DDC84;
 }
@@ -59,10 +66,4 @@
   width: 100%;
   object-fit: cover;
   background-color: #FFF;
-}
-
-@media screen and (max-width: 640px) {
-  .movies-card {
-    
-  }
 }

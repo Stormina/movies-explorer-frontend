@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import Logo from '../Logo/Logo';
 import Account from '../Account/Account';
 import Hamburger from '../Hamburger/Hamburger';
@@ -11,12 +11,20 @@ function Navigation({ isLoggedIn }) {
         <div className="navigation__container">
           <Logo/>
           <div className="navigation__links">
-            <Link to="/movies" className="navigation__movies navigation__link">
-              Фильмы
-            </Link>
-            <Link to="/saved-movies" className="navigation__saved-movies navigation__link">
-              Сохранённые фильмы
-            </Link>
+            <NavLink to="/movies"
+              className={(data) => data.isActive ?
+                "navigation__movies navigation__link navigation__link-active"
+              : 
+                "navigation__movies navigation__link"}>
+                  Фильмы
+            </NavLink>
+            <NavLink to="/saved-movies"
+              className={(data) => data.isActive ?
+                "navigation__saved-movies navigation__link navigation__link-active"
+              : 
+                "navigation__saved-movies navigation__link"}>
+                  Сохранённые фильмы
+            </NavLink>
             <Account />
           </div>
           <Hamburger />
@@ -26,12 +34,12 @@ function Navigation({ isLoggedIn }) {
             
         <div className="navigation__container">
           <Logo/>
-          <Link to="/signup" className="navigation__signup navigation__link">
+          <NavLink to="/signup" className="navigation__signup navigation__link">
             Регистрация
-          </Link>
-          <Link to="/signin" className="navigation__login navigation__link" >
+          </NavLink>
+          <NavLink to="/signin" className="navigation__login navigation__link" >
             Войти
-          </Link>
+          </NavLink>
         </div>
       }
     </nav>
