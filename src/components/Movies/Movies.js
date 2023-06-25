@@ -26,7 +26,7 @@ function Movies({
         setNotFoundMovies(true);
       } else {
         setNotFoundMovies(false);
-        setMovies(JSON.parse(data));
+        setMovies(data);
       }
     } else {
       setIsLoading(isLoading);
