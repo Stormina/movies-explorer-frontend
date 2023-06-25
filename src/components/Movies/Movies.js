@@ -19,13 +19,23 @@ function Movies({
   const saved = false
 
   useEffect(() => {
-    if (localStorage.getItem('checkbox')) {
-      setMovies(JSON.parse(localStorage.getItem('checkbox')));
+    const data = JSON.parse(localStorage.getItem('checkbox'));
+    if (data) {
       setShortMovies(true);
+      if (data.length === 0) {
+        setNotFoundMovies(true);
+      } else {
+        setNotFoundMovies(false);
+        setMovies(JSON.parse(data));
+      }
     } else {
-      setMovies(movies);
-      setNotFoundMovies(notFoundMovies);
       setIsLoading(isLoading);
+        if (movies) {
+          setNotFoundMovies(false);
+          setMovies(movies);
+        } else {
+          setNotFoundMovies(true);
+        }
     }
   }, [isLoading, movies, notFoundMovies, setNotFoundMovies, setIsLoading])
 

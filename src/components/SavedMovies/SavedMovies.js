@@ -20,9 +20,13 @@ function SavedMovies({
 
 useEffect(() => {
   if (!isShortMovies) {
-  setMovies(movies)
-  setNotFoundMovies(notFoundMovies)
-  setIsLoading(isLoading)
+    setIsLoading(isLoading)
+      if (movies) {
+        setNotFoundMovies(false);
+        setMovies(movies)
+      } else {
+        setNotFoundMovies(true);
+      }
   }
 }, [isLoading, movies, notFoundMovies, setNotFoundMovies, setIsLoading, isShortMovies])
 
